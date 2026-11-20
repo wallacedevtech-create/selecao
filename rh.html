@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel RH + Agente Siuan | AES Talent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="app">
+
+  <!-- LOGIN -->
+  <div id="login-screen">
+    <div class="login-art">
+      <a href="index.html" class="brand" data-brand></a>
+      <div>
+        <span class="eyebrow light">Painel executivo de recrutamento</span>
+        <h1 class="display" style="margin-top:14px">Decisões de contratação com evidência e supervisão humana.</h1>
+        <ul>
+          <li>Funil de seleção em tempo real</li>
+          <li>Pipeline Kanban com arraste entre etapas</li>
+          <li>Agente Siuan: IA explicável, sem eliminação automática</li>
+        </ul>
+      </div>
+      <small style="color:#6f82a6">© 2026 AES Desenvolvimento de Sistemas</small>
+    </div>
+    <div class="login-side">
+      <div class="login-card">
+        <h2>Acesso corporativo</h2>
+        <p>Entre com suas credenciais para acessar o painel de RH.</p>
+        <form id="login-form" class="form-stack">
+          <div><label class="lbl" for="login-email">E-mail corporativo</label><input class="field" type="email" id="login-email" value="rh@aes.com" required autocomplete="username" /></div>
+          <div><label class="lbl" for="login-pass">Chave de acesso</label><input class="field" type="password" id="login-pass" value="aes2026" required autocomplete="current-password" /></div>
+          <button type="submit" class="btn btn-primary btn-block" style="padding:14px">Autenticar sessão</button>
+          <div id="login-error" style="color:#ff9b9b;font-size:.85rem;text-align:center;min-height:1.2em" role="alert"></div>
+        </form>
+        <div class="hint">Demonstração — usuário <code>rh@aes.com</code> senha <code>aes2026</code></div>
+        <p style="margin-top:22px;text-align:center;font-size:.85rem"><a href="index.html" style="color:#8ea0bf">← Voltar ao site institucional</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a href="index.html" class="brand" data-brand style="font-size:1.05rem"></a>
+    <div class="right">
+      <a href="candidaturas.html" class="btn btn-outline btn-sm">Portal de vagas</a>
+      <button class="btn btn-outline btn-sm" id="btn-reset-demo" title="Restaurar dados iniciais">↻ Resetar demo</button>
+      <div class="user-chip"><i>RH</i><span>rh@aes.com</span></div>
+      <button class="btn btn-danger btn-sm" id="btn-logout">Sair</button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="side-label">Visão geral</div>
+      <button class="side-btn active" data-tab="tab-dashboard"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</button>
+      <div class="side-label">Recrutamento</div>
+      <button class="side-btn" data-tab="tab-candidates"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Candidatos<span class="count" id="nav-count-cands">0</span></button>
+      <button class="side-btn" data-tab="tab-kanban"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="18" rx="1.5"/><rect x="10" y="3" width="5" height="11" rx="1.5"/><rect x="17" y="3" width="4" height="14" rx="1.5"/></svg>Pipeline Kanban</button>
+      <button class="side-btn" data-tab="tab-jobs"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V4h8v3M3 13h18"/></svg>Vagas<span class="count" id="nav-count-jobs">0</span></button>
+      <button class="side-btn" data-tab="tab-interviews"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Entrevistas</button>
+      <div class="side-label">Inteligência</div>
+      <button class="side-btn" data-tab="tab-siuan"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg>Agente Siuan</button>
+      <button class="side-btn" data-tab="tab-lgpd"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>Relatórios &amp; LGPD</button>
+      <div class="side-foot"><b>Supervisão humana</b>Nenhuma etapa é alterada pela IA sem ação de um analista.</div>
+    </aside>
+
+    <main class="main">
+
+      <!-- DASHBOARD -->
+      <section id="tab-dashboard" class="tab-view show">
+        <div class="page-head">
+          <div><h2 class="title">Dashboard executivo</h2><p id="dash-date"></p></div>
+          <button class="btn btn-primary btn-sm" data-goto="tab-candidates">Ver candidatos →</button>
+        </div>
+        <div class="kpis" id="kpi-cards"></div>
+        <div class="dash-grid">
+          <div class="card"><div class="card-title">Funil de seleção por etapa <small id="funnel-total"></small></div><div id="funnel-bars"></div></div>
+          <div class="siuan-box">
+            <div class="siuan-head"><div class="siuan-orb"></div><div><b>Resumo operacional · Siuan</b><small id="dash-siuan-badge">Autonomia nível 1</small></div></div>
+            <div class="siuan-text" id="dash-siuan-summary"></div>
+          </div>
+        </div>
+        <div class="dash-grid three">
+          <div class="card"><div class="card-title">Candidatos por setor</div><div id="donut-sector"></div></div>
+          <div class="card"><div class="card-title">Maiores aderências <small>top 5</small></div><div class="rank" id="top-cands"></div></div>
+          <div class="card"><div class="card-title">Próximas entrevistas</div><div class="rank" id="next-interviews"></div></div>
+        </div>
+      </section>
+
+      <!-- CANDIDATOS -->
+      <section id="tab-candidates" class="tab-view">
+        <div class="page-head">
+          <div><h2 class="title">Banco de candidatos</h2><p id="cands-sub"></p></div>
+          <button class="btn btn-primary btn-sm" id="btn-export-csv">⬇ Exportar CSV</button>
+        </div>
+        <div class="filters">
+          <input class="field" type="search" id="f-search" placeholder="Buscar nome, protocolo ou competência..." aria-label="Buscar candidatos" />
+          <select class="field" id="f-sector" aria-label="Setor"><option value="">Todas as áreas</option></select>
+          <select class="field" id="f-job" aria-label="Vaga"><option value="">Todas as vagas</option></select>
+          <select class="field" id="f-stage" aria-label="Etapa"><option value="">Todas as etapas</option></select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Protocolo</th><th>Candidato</th><th>Vaga / setor</th><th>Aderência</th><th>Etapa</th><th></th></tr></thead>
+            <tbody id="candidates-tbody"></tbody>
+          </table>
+        </div>
+        <div class="pager"><span id="pager-info"></span><div><button class="btn btn-outline btn-sm" id="pg-prev">← Anterior</button><button class="btn btn-outline btn-sm" id="pg-next">Próxima →</button></div></div>
+      </section>
+
+      <!-- KANBAN -->
+      <section id="tab-kanban" class="tab-view">
+        <div class="page-head">
+          <div><h2 class="title">Pipeline Kanban</h2><p>Arraste os cartões entre as colunas ou use as setas para mover candidatos.</p></div>
+          <div style="min-width:260px"><select class="field" id="k-job" aria-label="Filtrar vaga"><option value="">Todas as vagas</option></select></div>
+        </div>
+        <div class="kanban" id="kanban-board"></div>
+      </section>
+
+      <!-- VAGAS -->
+      <section id="tab-jobs" class="tab-view">
+        <div class="page-head">
+          <div><h2 class="title">Quadro de vagas</h2><p>Vagas publicadas no portal de carreiras.</p></div>
+          <button class="btn btn-primary btn-sm" id="btn-open-new-job">+ Cadastrar nova vaga</button>
+        </div>
+        <div class="grid g-auto" id="rh-jobs"></div>
+      </section>
+
+      <!-- ENTREVISTAS -->
+      <section id="tab-interviews" class="tab-view">
+        <div class="page-head">
+          <div><h2 class="title">Agenda de entrevistas</h2><p>Horários confirmados e sugestões assistidas pela Siuan.</p></div>
+          <button class="btn btn-primary btn-sm" id="btn-siuan-schedule">Agendamento assistido (Siuan)</button>
+        </div>
+        <div id="schedule-feedback" style="margin-bottom:16px"></div>
+        <div class="grid g-auto" id="interviews-list"></div>
+      </section>
+
+      <!-- SIUAN -->
+      <section id="tab-siuan" class="tab-view">
+        <div class="page-head"><div><h2 class="title">Agente Siuan</h2><p>Copiloto de IA explicável, baseado apenas em evidências declaradas e métricas do ecossistema.</p></div></div>
+        <div class="card" style="margin-bottom:18px">
+          <div class="card-title">Nível de autonomia operacional</div>
+          <div class="autonomy">
+            <label class="card auto-opt hover"><input type="radio" name="siuan-level" value="1" /><b>Nível 1 · Informativo</b><span>Apenas apresenta dados e evidências.</span></label>
+            <label class="card auto-opt hover"><input type="radio" name="siuan-level" value="2" /><b>Nível 2 · Sugestivo</b><span>Sugere prioridades e próximos passos.</span></label>
+            <label class="card auto-opt hover"><input type="radio" name="siuan-level" value="3" /><b>Nível 3 · Copiloto ativo</b><span>Prepara ações para confirmação do RH.</span></label>
+          </div>
+        </div>
+        <div class="siuan-box">
+          <div class="siuan-head"><div class="siuan-orb"></div><div><b>Consultas rápidas de auditoria e insights</b><small>Toda resposta cita os dados que a originam</small></div></div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <button class="btn btn-outline btn-sm siuan-prompt" data-q="evidencias">Analisar evidências de TI</button>
+            <button class="btn btn-outline btn-sm siuan-prompt" data-q="gargalos">Identificar gargalos do funil</button>
+            <button class="btn btn-outline btn-sm siuan-prompt" data-q="roteiro">Gerar roteiro de entrevista</button>
+            <button class="btn btn-outline btn-sm siuan-prompt" data-q="etica">Auditoria ética &amp; LGPD</button>
+          </div>
+          <div class="chat-log" id="siuan-chat-log"></div>
+        </div>
+      </section>
+
+      <!-- RELATÓRIOS -->
+      <section id="tab-lgpd" class="tab-view">
+        <div class="page-head"><div><h2 class="title">Relatórios &amp; governança LGPD</h2><p>Distribuição do processo seletivo e diretrizes de conformidade.</p></div></div>
+        <div class="dash-grid">
+          <div class="card"><div class="card-title">Distribuição por setor</div><div id="sector-report"></div></div>
+          <div class="card" style="border-left:3px solid var(--teal)">
+            <div class="card-title">Diretrizes de governança</div>
+            <ul style="padding-left:18px;color:#a9b8d2;font-size:.9rem;display:grid;gap:12px;line-height:1.55">
+              <li><strong style="color:#fff">Supervisão humana mandatória:</strong> avanço e contratação dependem exclusivamente dos analistas de RH.</li>
+              <li><strong style="color:#fff">Minimização de dados:</strong> apenas informações profissionais e competências estritamente necessárias.</li>
+              <li><strong style="color:#fff">Sem eliminação automática:</strong> pontuações são indicativas e nunca reprovam candidatos.</li>
+              <li><strong style="color:#fff">Armazenamento:</strong> dados no localStorage do navegador (ambiente demonstrativo; sem backend).</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card"><div class="card-title">Matriz setor × etapa</div><div class="table-wrap" style="border:0"><table><thead id="matrix-head"></thead><tbody id="matrix-body"></tbody></table></div></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL: FICHA -->
+  <div class="modal-backdrop" id="cand-modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    <div class="modal-box">
+      <div class="modal-head"><h3 id="m-title">Ficha do candidato</h3><button class="btn btn-outline btn-sm" id="m-close" aria-label="Fechar">✕</button></div>
+      <div id="m-details"></div>
+      <div style="margin-bottom:14px"><label class="lbl" for="m-stage">Atualizar etapa no funil</label><select class="field" id="m-stage"></select></div>
+      <div style="margin-bottom:22px"><label class="lbl" for="m-notes">Notas de avaliação técnica / comportamental</label><textarea class="field" id="m-notes" rows="3"></textarea></div>
+      <div style="display:flex;justify-content:space-between;gap:12px"><button class="btn btn-danger" id="m-delete">Excluir cadastro</button><button class="btn btn-primary" id="m-save">Salvar alterações</button></div>
+    </div>
+  </div>
+
+  <!-- MODAL: NOVA VAGA -->
+  <div class="modal-backdrop" id="job-modal" role="dialog" aria-modal="true" aria-labelledby="job-title">
+    <div class="modal-box">
+      <div class="modal-head"><h3 id="job-title">Cadastrar nova vaga</h3><button class="btn btn-outline btn-sm" id="job-close" aria-label="Fechar">✕</button></div>
+      <form id="new-job-form" class="form-stack">
+        <div><label class="lbl" for="nj-title">Título do cargo *</label><input class="field" type="text" id="nj-title" placeholder="Ex.: Arquiteto Cloud Sênior" required /></div>
+        <div class="form-2">
+          <div><label class="lbl" for="nj-sector">Setor *</label><select class="field" id="nj-sector"></select></div>
+          <div><label class="lbl" for="nj-model">Modelo *</label><select class="field" id="nj-model"><option>Híbrido</option><option>Remoto</option><option>Presencial</option></select></div>
+        </div>
+        <div><label class="lbl" for="nj-salary">Faixa salarial *</label><input class="field" type="text" id="nj-salary" placeholder="Ex.: R$ 9.000 - R$ 13.000" required /></div>
+        <div><label class="lbl" for="nj-reqs">Requisitos (separados por vírgula) *</label><input class="field" type="text" id="nj-reqs" placeholder="Ex.: AWS, Kubernetes, Terraform" required /></div>
+        <button type="submit" class="btn btn-primary btn-block" style="padding:14px;margin-top:6px">Publicar vaga no portal</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="site.js"></script>
+  <script src="rh.js"></script>
+</body>
+</html>

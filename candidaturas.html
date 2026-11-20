@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carreiras | AES Desenvolvimento de Sistemas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="nav solid">
+    <a href="index.html" class="brand" data-brand aria-label="AES Talent"></a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="index.html">Institucional</a>
+      <a href="candidaturas.html" class="active">Portal de Vagas</a>
+      <a href="#candidatar">Candidatar-se</a>
+      <a href="#consulta">Acompanhar inscrição</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="rh.html" class="btn btn-ghost btn-sm hide-m">Painel RH</a>
+      <a href="#vagas" class="btn btn-primary btn-sm">Ver vagas</a>
+      <button class="nav-toggle" aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow light">Carreiras · AES Desenvolvimento de Sistemas</span>
+      <h1 class="display">Construa o próximo capítulo da sua carreira.</h1>
+      <p class="lead" style="color:#b9c6dd">Posições em Tecnologia, RH, Administrativo, Facilities e Manutenção. Processo ético, transparente e com revisão 100% humana.</p>
+      <div class="hero-actions">
+        <a href="#vagas" class="btn btn-primary">Explorar oportunidades</a>
+        <a href="#consulta" class="btn btn-ghost">Consultar protocolo</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap" id="vagas" style="padding-bottom:30px">
+    <div class="toolbar">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input class="field" id="job-search" type="search" placeholder="Buscar cargo ou competência (ex.: Node.js, NR-10)..." aria-label="Buscar vagas" />
+      </div>
+      <div class="chips" id="sector-chips" role="group" aria-label="Filtrar por setor"></div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;flex-wrap:wrap;gap:8px">
+      <h2 class="display" style="font-size:1.9rem">Oportunidades abertas</h2>
+      <span class="muted" id="jobs-count" style="font-size:.9rem"></span>
+    </div>
+    <div class="grid g-auto" id="jobs-list" style="margin-bottom:70px"></div>
+
+    <!-- Como funciona -->
+    <div style="margin-bottom:70px">
+      <div class="section-head" style="margin-bottom:26px"><span class="eyebrow">Como funciona</span><h2 class="display" style="font-size:2rem">Quatro etapas, nenhuma caixa-preta.</h2></div>
+      <div class="steps">
+        <div class="step"><b>Triagem</b><p>Seu perfil é lido por um analista de RH, apoiado por evidências organizadas.</p></div>
+        <div class="step"><b>Entrevista RH</b><p>Conversa sobre trajetória, expectativas e modelo de trabalho.</p></div>
+        <div class="step"><b>Avaliação técnica</b><p>Desafio ou entrevista com o gestor da área, alinhados à vaga.</p></div>
+        <div class="step"><b>Proposta</b><p>Carta-proposta e documentação para início da jornada na AES.</p></div>
+      </div>
+    </div>
+
+    <!-- Formulário + consulta -->
+    <div class="grid" style="grid-template-columns:1.15fr .85fr;gap:30px;align-items:start" id="apply-section">
+      <div class="panel" id="candidatar">
+        <h2>Formulário de candidatura</h2>
+        <p class="desc">Preencha seus dados profissionais para gerar um protocolo imediato.</p>
+        <form id="apply-form" class="form-stack">
+          <div><label class="lbl" for="cand-job">Vaga desejada *</label><select class="field" id="cand-job" required></select></div>
+          <div><label class="lbl" for="cand-name">Nome completo *</label><input class="field" type="text" id="cand-name" placeholder="Ex.: João da Silva" required /></div>
+          <div class="form-2">
+            <div><label class="lbl" for="cand-email">E-mail *</label><input class="field" type="email" id="cand-email" placeholder="joao@email.com" required /></div>
+            <div><label class="lbl" for="cand-phone">Telefone / WhatsApp *</label><input class="field" type="tel" id="cand-phone" placeholder="(64) 99999-0000" required /></div>
+          </div>
+          <div><label class="lbl" for="cand-skills">Competências e experiências *</label><input class="field" type="text" id="cand-skills" placeholder="Ex.: Node.js, React, SQL, Excel, NR-10..." required /></div>
+          <div>
+            <label class="lbl" for="cand-file">Currículo (upload simulado — PDF/DOCX)</label>
+            <input class="field" type="file" id="cand-file" accept=".pdf,.doc,.docx" style="cursor:pointer" />
+            <small id="file-feedback" style="color:var(--teal-700);font-weight:600;font-size:.8rem;display:block;margin-top:5px"></small>
+          </div>
+          <label style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--ink-2);cursor:pointer">
+            <input type="checkbox" id="cand-lgpd" required style="margin-top:3px;accent-color:#0fa392" />
+            <span>Concordo com o tratamento dos meus dados profissionais para fins de seleção, conforme a LGPD.</span>
+          </label>
+          <button type="submit" class="btn btn-primary btn-block" style="padding:14px">Confirmar candidatura</button>
+        </form>
+        <div id="apply-result" style="margin-top:18px" aria-live="polite"></div>
+      </div>
+
+      <div class="panel" id="consulta" style="border-top:4px solid var(--navy-900)">
+        <h2>Acompanhar inscrição</h2>
+        <p class="desc">Informe seu protocolo (ex.: <code style="background:var(--paper);color:var(--navy-800);padding:2px 7px;border-radius:5px;font-family:var(--font-mono)">AES-101</code>) ou o e-mail cadastrado.</p>
+        <div style="display:flex;gap:8px;margin-bottom:18px">
+          <input class="field" type="text" id="lookup-query" placeholder="Protocolo ou e-mail..." aria-label="Protocolo ou e-mail" />
+          <button type="button" class="btn btn-dark" id="btn-lookup">Buscar</button>
+        </div>
+        <div id="lookup-result" aria-live="polite">
+          <div style="border:1.5px dashed var(--line);padding:22px;border-radius:12px;text-align:center;color:var(--ink-3);font-size:.9rem">Digite um protocolo para ver a etapa atual no funil do RH.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice">
+      <div><strong>Compromisso ético &amp; LGPD:</strong> a AES não realiza eliminação automática por algoritmos. A IA assistiva (Agente Siuan) apenas organiza evidências para análise humana.</div>
+      <span style="font-size:.78rem;opacity:.8">Demonstração · dados em localStorage</span>
+    </div>
+  </main>
+
+  <footer class="footer" style="margin-top:50px">
+    <div class="wrap">
+      <div class="footer-bottom" style="padding-top:0">
+        <span class="brand" data-brand style="font-size:1rem"></span>
+        <span>© 2026 AES Desenvolvimento de Sistemas · Portal de Carreiras</span>
+        <a href="index.html" style="color:var(--teal)">← Voltar ao site institucional</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="site.js"></script>
+  <script src="apply.js"></script>
+</body>
+</html>
